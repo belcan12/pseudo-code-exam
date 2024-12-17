@@ -32,26 +32,66 @@ END // Avslutar programmet
 */
 
 // VG-Version - Lewis Carroll Word Puzzle
-// Skriv din pseudokod innanför nedanstående kommentarsblock
-// Startkoden är 100% frivillig och kan tas bort eller skrivas om
 /*
 
 play();
 
-function play()
-    SET variabel ordbok = [FOUR, FOUL, FOOL, FOOT, FORT, FORE, FIRE, FIVE]; // Innehåller ALLA ord i det engelska språket
-    SET variabel startOrd till "FOUR";
-    SET variabel slutordOrd till "FIVE";
+FUNCTION play()
+    // Initiera variabler
+    SET ordbok = [EYE, LIE, LID, FOUL, FOOL, FOOT, FORT, FORE, FIRE, FIVE]; 
+    SET startOrd = "EYE";
+    SET slutOrd = "LID";
+    SET aktuelltOrd = startOrd;
 
+    PRINT "Välkommen till Lewis Carroll Word Puzzle!";
+    PRINT "Startord: " + startOrd + ", Slutord: " + slutOrd;
 
-end function
+    // Starta spelets loop
+    LOOP through 1 to 100 // Max antal försök
+        INPUT nyttOrd;
 
-function isOneLetterApart(wordOne, wordTwo)
-    SET variabel diffCount till 0;
+        // Kontrollera att ordet finns i ordbok
+        IF nyttOrd NOT IN ordbok THEN
+            PRINT "Ogiltigt ord. Försök igen.";
+            CONTINUE;
+        ENDIF
 
-    // Här behöver du skriva koden för din funktion
+        // Kontrollera att endast en bokstav ändrats
+        CALL FUNCTION isOneLetterApart(aktuelltOrd, nyttOrd);
+        IF isOneLetterApart RETURN false THEN
+            PRINT "Endast en bokstav får ändras. Försök igen.";
+            CONTINUE;
+        ENDIF
 
-    return diffCount === 1; // returnerar sant om endast en bokstav ändrats, annars falskt
-end function
+        // Uppdatera aktuellt ord
+        SET aktuelltOrd = nyttOrd;
+
+        // Kontrollera om spelet är vunnet
+        IF aktuelltOrd == slutOrd THEN
+            PRINT "Grattis! Du vann spelet.";
+            END;
+        ENDIF
+    ENDLOOP
+
+    PRINT "Spelet avslutas. Du nådde inte slutordet.";
+ENDFUNCTION
+
+FUNCTION isOneLetterApart(wordOne, wordTwo)
+    SET diffCount = 0;
+
+    // Loopa igenom varje bokstav
+    LOOP through 0 to LENGTH(wordOne) - 1
+        IF wordOne[INDEX] != wordTwo[INDEX] THEN
+            SET diffCount = diffCount + 1;
+        ENDIF
+    ENDLOOP
+
+    // Returnera resultat
+    IF diffCount == 1 THEN
+        RETURN true;
+    ELSE
+        RETURN false;
+    ENDIF
+ENDFUNCTION
 
 */
